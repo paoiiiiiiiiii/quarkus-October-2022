@@ -1,0 +1,9 @@
+{
+    "address": {
+        "houseNumber": 40,
+        "street": "sandystreet"
+    },
+    "age": 18,
+    "isHappy": true,
+    "name": "Joe"
+}

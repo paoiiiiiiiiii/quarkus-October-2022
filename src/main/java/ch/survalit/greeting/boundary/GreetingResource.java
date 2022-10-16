@@ -51,4 +51,11 @@ public class GreetingResource {
     public Greeting helloJsonB() {
         return this.greetingLoader.getGreetingWithName();
     }
+
+    @GET
+    @Path("returnStudent")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String returnStudent() {
+       return this.greetingLoader.returnUser();
+    }
 }

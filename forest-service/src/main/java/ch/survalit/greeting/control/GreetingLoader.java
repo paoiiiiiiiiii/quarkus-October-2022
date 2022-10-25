@@ -1,18 +1,17 @@
 package ch.survalit.greeting.control;
 
+import ch.survalit.greeting.entity.Address;
+import ch.survalit.greeting.entity.Greeting;
+import ch.survalit.greeting.entity.Student;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.json.Json;
+import javax.json.JsonObject;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.json.Json;
-import javax.json.JsonObject;
-
-import ch.survalit.greeting.entity.Address;
-import ch.survalit.greeting.entity.Greeting;
-import ch.survalit.greeting.entity.Student;
 
 @ApplicationScoped
 public class GreetingLoader {
@@ -42,9 +41,9 @@ public class GreetingLoader {
                 true,
                 new Address("sandystreet", 40));
     }
-    
+
     public String returnUser() {
-        Connection conDB=null;
+        Connection conDB = null;
         int id = 0;
         String fname = null;
         String mname = null;
@@ -54,14 +53,14 @@ public class GreetingLoader {
         String inserted_date = null;
         int student_no = 0;
 
-        try{
+        try {
             conDB = DriverManager.getConnection("jdbc:mariadb://localhost:3306/student_db", "root", "");
-            
+
             String sql = "SELECT * FROM student_info WHERE id = 1;";
             Statement statement = conDB.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
-            while (result.next()){
+            while (result.next()) {
                 id = result.getInt("id");
                 fname = result.getString("fname");
                 mname = result.getString("mname");
@@ -75,20 +74,24 @@ public class GreetingLoader {
             if (conDB != null) {
                 //System.out.println("Connected Successfully");
             }
-        } catch (SQLException ex) {ex.printStackTrace();}
-        finally {
-            try{conDB.close();}
-            catch (Exception e) {
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                conDB.close();
+            } catch (Exception e) {
                 //do nothing
             }
         }
-        String studentResult = "id: " + id + " ,fname: " + fname + " ,mname: " + mname + " ,lname: " + lname + " ,age: " + age + " ,birthday: " + bday + " ,inserted_date: " + inserted_date + " ,student no: " + student_no;
-        return studentResult; 
-        
+        String studentResult =
+                "id: " + id + " ,fname: " + fname + " ,mname: " + mname + " ,lname: " + lname + " ,age: " + age + " ,birthday: " + bday +
+                        " ,inserted_date: " + inserted_date + " ,student no: " + student_no;
+        return studentResult;
+
     }
 
     public Student returnUserTemplate(int userID) {
-        Connection conDB=null;
+        Connection conDB = null;
         int id = 0;
         String fname = null;
         String mname = null;
@@ -98,14 +101,14 @@ public class GreetingLoader {
         String inserted_date = null;
         int student_no = 0;
 
-        try{
+        try {
             conDB = DriverManager.getConnection("jdbc:mariadb://localhost:3306/student_db", "root", "");
-            
+
             String sql = "SELECT * FROM student_info WHERE id = " + userID + ";";
             Statement statement = conDB.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
-            while (result.next()){
+            while (result.next()) {
                 id = result.getInt("id");
                 fname = result.getString("fname");
                 mname = result.getString("mname");
@@ -119,10 +122,12 @@ public class GreetingLoader {
             if (conDB != null) {
                 //System.out.println("Connected Successfully");
             }
-        } catch (SQLException ex) {ex.printStackTrace();}
-        finally {
-            try{conDB.close();}
-            catch (Exception e) {
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                conDB.close();
+            } catch (Exception e) {
                 //do nothing
             }
         }

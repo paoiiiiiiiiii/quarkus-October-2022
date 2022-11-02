@@ -1,9 +1,13 @@
 package ch.survalit.books.entity;
 
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
@@ -12,10 +16,14 @@ import javax.persistence.Table;
 //                @UniqueConstraint(columnNames = {"title", "author"})
 //        }
 )
+@NamedQueries({
+        @NamedQuery(name = "findByAuthor", query = "select b from Book b where b.author = :author")
+})
 public class Book {
 
     @Id
     @GeneratedValue
+    @Schema(readOnly = true)
     private long id;
 
     @Column(name = "title", nullable = false)
